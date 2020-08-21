@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<h2>Welcome SpringBoot!</h2>
+<!--取后台model中字符串的值，具体语法参见thymeleaf-->
+<h2 th:text="${name}"></h2>
+
+<input type="text" th:value="${mobile}"/>
+
+<br/>
+<table>
+    <tr>
+        <th>编号</th>
+    </tr>
+    <tr th:each="l:${list}">
+        <td th:text="${l}"></td>
+    </tr>
+</table>
+
+<!--设置图片src，网上说需要用“th:src="@{/images/test.jpg}"”，但其实用普通方式也是可以的-->
+<img src="images/test.jpg">
+<img th:src="@{/images/test.jpg}">
+</body>
+</html>

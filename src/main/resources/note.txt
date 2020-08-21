@@ -1,0 +1,43 @@
+&创建最基本的springboot项目：
+    1》注入springboot启动器
+    2》springboot的几种启动方式：
+        //启动方式（环境中启动）1（不常用）：在本类中添加@EnableAutoConfiguration，写一个main方法
+        //@EnableAutoConfiguration
+        //启动方式（环境中启动）2，常使用：在项目中单独新建一个类作为启动类，会将该类同层以及子包下的所有类都扫描到，所以需要注意层级关系，详见com.springboot.sprbt01.Sprbt01Application。
+        //启动方式（命令行）：“mvn spring-boot:run”，可以在dos下启动（注意需要进入项目根路径），也可以在开发工具的终端启动（如idea的terminal，路径直接是根路径、不用切换）
+        //启动方式（jar方式）：需要先运行mvn命令进行项目打包，然后“java -jar 包名”即可
+
+&静态其资源文件的访问：
+    静态资源目录约定，在src/main/resources下创建templates目录【放html等页面文件】，static目录【放js，css，image等静态资源】
+    1》spring基本上采用了默认扫描的方式，也就是其内部默认的去扫描某些文件夹或文件夹，如配置文件默认扫描的就是resources下“application.properties”。
+    2》静态文件：默认扫描static文件夹，不作特别申明都指的是resources下，可以将静态文件css、js、image、font字体文件等放到其中、。
+        注意，访问路径不需要加static只需要写它之后的路径、默认将static作为起始路径，如“/images/test.jpg”
+
+&捕获全局异常：
+    原来的代码不需要修改，只需新建全局异常处理类、并且标注@ControllerAdvice、在该类中编写相关类型异常的拦截处理方法即可；
+    方法名可以随便写、但是要标明它需要拦截的异常类型、@ExceptionHandler(RuntimeException.class)；
+    也可以通过注解来指定该方法返回值类型，比如@ResponseBody指定json格式字符串；
+    详见com.springboot.sprbt01.exception.GlobalExceptionAop。
+
+&集成thymeleaf：jsp太重、一般推荐私用模版，如thymeleaf、freemaker、groovy等轻量级的视图，html类似于静态资源。
+    1》springboot默认的模版文件约定放在templates下，templates作为模版的根路径，不需要写
+    2》整合步骤：
+        1》》在配配置文件中添加配置
+            spring.thymeleaf.suffix=.html
+            spring.thymeleaf.mode=HTML5
+            spring.thymeleaf.encoding=UTF-8
+            spring.thymeleaf.content-type=text/html
+        2》》pom中添加依赖
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            </dependency>
+        3》》templates下新建“index.html”
+        4》》controller中写方法跳转到“index.html”
+@thymeleaf展示数据：详见templates/index.html
+    1》基本语法都需要用到“th:”
+    2》通过“@”来获取当前项目路径，如设置img的src就要用到“th:src="@{/images/test.jpg}"”（但是其实是用普通方式也能访问）
+
+
+
+
