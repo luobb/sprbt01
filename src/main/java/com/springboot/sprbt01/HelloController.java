@@ -23,7 +23,7 @@ public class HelloController {
     @RequestMapping("/hello")
     public String hello() {
         System.out.println("Hello spring boot!");
-        System.out.println(12345);
+        System.out.println(91);
         return "Hello spring boot!";
     }
 
